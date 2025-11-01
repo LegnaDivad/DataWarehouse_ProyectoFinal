@@ -1,0 +1,221 @@
+# Informe EDA
+Este informe fue generado automáticamente por `data/eda.py`. Contiene: estructura, calidad, resumen estadístico y detección de anomalías para cada archivo en `data/`.
+
+## Archivo: Bank_Price_Data_China new.csv
+
+- Ruta: `\DataWarehouse_PF\data\Bank_Price_Data_China new.csv`
+- Filas: 1985, Columnas: 26
+- Tipos detectados (muestra):
+  - Date: object
+  - LS_ny: float64
+  - LS_jt: float64
+  - LS_gs: float64
+  - LS_js: float64
+  - LS_zg: float64
+  - JC_pa: float64
+  - JC_pf: float64
+  - JC_hx: float64
+  - JC_ms: float64
+  - JC_zs: float64
+  - JC_xy: float64
+  - JC_gd: float64
+  - JC_zx: float64
+  - CC_nb: float64
+  - CC_js: float64
+  - CC_hz: float64
+  - CC_nj: float64
+  - CC_bj: float64
+  - CC_sh: float64
+
+- Nulos (primeras 20 columnas):
+  - Date: 0
+  - LS_ny: 0
+  - LS_jt: 0
+  - LS_gs: 0
+  - LS_js: 0
+  - LS_zg: 0
+  - JC_pa: 0
+  - JC_pf: 0
+  - JC_hx: 0
+  - JC_ms: 0
+  - JC_zs: 0
+  - JC_xy: 0
+  - JC_gd: 0
+  - JC_zx: 0
+  - CC_nb: 0
+  - CC_js: 0
+  - CC_hz: 0
+  - CC_nj: 0
+  - CC_bj: 0
+  - CC_sh: 0
+
+### Detección de anomalías
+ - Columna `LS_ny`: IQR outliers = 160, z-outliers = 8
+ - Columna `LS_jt`: IQR outliers = 0, z-outliers = 0
+ - Columna `LS_gs`: IQR outliers = 15, z-outliers = 11
+ - Columna `LS_js`: IQR outliers = 34, z-outliers = 12
+ - Columna `LS_zg`: IQR outliers = 94, z-outliers = 16
+ - Columna `JC_pa`: IQR outliers = 103, z-outliers = 17
+ - Columna `JC_pf`: IQR outliers = 22, z-outliers = 14
+ - Columna `JC_hx`: IQR outliers = 85, z-outliers = 6
+ - Columna `JC_ms`: IQR outliers = 0, z-outliers = 0
+ - Columna `JC_zs`: IQR outliers = 93, z-outliers = 0
+ - Columna `JC_xy`: IQR outliers = 49, z-outliers = 19
+ - Columna `JC_gd`: IQR outliers = 0, z-outliers = 0
+ - Columna `JC_zx`: IQR outliers = 0, z-outliers = 1
+ - Columna `CC_nb`: IQR outliers = 0, z-outliers = 0
+ - Columna `CC_js`: IQR outliers = 117, z-outliers = 2
+ - Columna `CC_hz`: IQR outliers = 63, z-outliers = 35
+ - Columna `CC_nj`: IQR outliers = 0, z-outliers = 0
+ - Columna `CC_bj`: IQR outliers = 114, z-outliers = 59
+ - Columna `CC_sh`: IQR outliers = 143, z-outliers = 42
+ - Columna `CC_gy`: IQR outliers = 0, z-outliers = 0
+ - Columna `RC_jy`: IQR outliers = 282, z-outliers = 62
+ - Columna `RC_zjg`: IQR outliers = 277, z-outliers = 44
+ - Columna `RC_wx`: IQR outliers = 305, z-outliers = 50
+ - Columna `RC_cs`: IQR outliers = 161, z-outliers = 58
+ - Columna `RC_sn`: IQR outliers = 223, z-outliers = 91
+
+## Archivo: final_dataset_tata_motors.csv
+
+- Ruta: `DataWarehouse_PF\data\final_dataset_tata_motors.csv`
+- Filas: 1910, Columnas: 25
+- Tipos detectados (muestra):
+  - timestamp: object
+  - open: float64
+  - high: float64
+  - low: float64
+  - close: float64
+  - volume: int64
+  - RSI: float64
+  - MACD: float64
+  - MACD_signal: float64
+  - MACD_hist: float64
+  - Doji: int64
+  - date: object
+  - sentiment: float64
+  - ema_50: float64
+  - ema_200: float64
+  - rsi: float64
+  - MACD_12_26_9: float64
+  - MACDh_12_26_9: float64
+  - MACDs_12_26_9: float64
+  - avg_volume_10d: float64
+
+- Nulos (primeras 20 columnas):
+  - timestamp: 0
+  - open: 0
+  - high: 0
+  - low: 0
+  - close: 0
+  - volume: 0
+  - RSI: 0
+  - MACD: 0
+  - MACD_signal: 0
+  - MACD_hist: 0
+  - Doji: 0
+  - date: 0
+  - sentiment: 0
+  - ema_50: 49
+  - ema_200: 199
+  - rsi: 14
+  - MACD_12_26_9: 25
+  - MACDh_12_26_9: 33
+  - MACDs_12_26_9: 33
+  - avg_volume_10d: 9
+
+### Detección de anomalías
+ - Columna `open`: IQR outliers = 30, z-outliers = 25
+ - Columna `high`: IQR outliers = 36, z-outliers = 26
+ - Columna `low`: IQR outliers = 29, z-outliers = 26
+ - Columna `close`: IQR outliers = 32, z-outliers = 27
+ - Columna `volume`: IQR outliers = 144, z-outliers = 46
+ - Columna `RSI`: IQR outliers = 42, z-outliers = 18
+ - Columna `MACD`: IQR outliers = 164, z-outliers = 25
+ - Columna `MACD_signal`: IQR outliers = 147, z-outliers = 22
+ - Columna `MACD_hist`: IQR outliers = 130, z-outliers = 21
+ - Columna `Doji`: IQR outliers = 326, z-outliers = 0
+ - Columna `sentiment`: IQR outliers = 0, z-outliers = 0
+ - Columna `ema_50`: IQR outliers = 11, z-outliers = 10
+ - Columna `ema_200`: IQR outliers = 0, z-outliers = 0
+ - Columna `rsi`: IQR outliers = 32, z-outliers = 6
+ - Columna `MACD_12_26_9`: IQR outliers = 156, z-outliers = 25
+ - Columna `MACDh_12_26_9`: IQR outliers = 125, z-outliers = 21
+ - Columna `MACDs_12_26_9`: IQR outliers = 141, z-outliers = 22
+ - Columna `avg_volume_10d`: IQR outliers = 82, z-outliers = 45
+ - Columna `avg_volume_50d`: IQR outliers = 94, z-outliers = 53
+ - Columna `volume_ratio`: IQR outliers = 137, z-outliers = 38
+ - Columna `master_score`: IQR outliers = 150, z-outliers = 37
+ - Columna `52_week_high`: IQR outliers = 25, z-outliers = 22
+ - Columna `distance_from_high`: IQR outliers = 5, z-outliers = 5
+
+## Archivo: pool_swaps.csv
+
+- Ruta: `\DataWarehouse_PF\data\pool_swaps.csv`
+- Estrategia: lectura por chunks (muestrado + Welford para medias/var) debido al tamaño potencial).
+- Filas procesadas (aprox): 414164
+
+### Calidad / Nulos
+
+- Conteo nulos por columna (muestra):
+  - slot: 0
+  - block_time: 0
+  - tx_signature: 0
+  - token_mint_a: 0
+  - token_mint_b: 0
+  - token_vault_a: 0
+  - token_vault_b: 0
+  - num_swaps: 0
+  - token_amount_a: 0
+  - token_amount_b: 0
+  - pre_balance_a: 0
+  - pre_balance_b: 0
+  - post_balance_a: 0
+  - post_balance_b: 0
+  - decimals_a: 0
+  - decimals_b: 0
+  - token_price_a: 0
+  - token_price_b: 0
+  - token_ema_a: 0
+  - token_ema_b: 0
+  - pool_address: 0
+  - fee_tier: 0
+  - token_amount_a_ui: 0
+  - token_amount_b_ui: 0
+  - volume_usd: 0
+  - fee_usd: 0
+  - lp_fee_usd: 0
+  - date: 0
+  - price_ratio: 2
+  - tvl_usd: 0
+  - tvl_utilization: 16260
+  - balance_ratio: 16260
+  - balance_imbalance: 16260
+
+### Detección de anomalías (muestra)
+ - Columna `slot`: IQR outliers (muestra) = 4511, z-outliers (muestra) = 1567; q1=370666557.75, q3=372944297.0
+ - Columna `block_time`: IQR outliers (muestra) = 4503, z-outliers (muestra) = 1565; q1=1759395907.0, q3=1760298209.5
+ - Columna `num_swaps`: IQR outliers (muestra) = 9699, z-outliers (muestra) = 1; q1=1.0, q3=1.0
+ - Columna `token_amount_a`: IQR outliers (muestra) = 9219, z-outliers (muestra) = 123; q1=8223404.25, q3=3257142857.0
+ - Columna `token_amount_b`: IQR outliers (muestra) = 8333, z-outliers (muestra) = 322; q1=4668457.25, q3=2200561194.75
+ - Columna `pre_balance_a`: IQR outliers (muestra) = 9811, z-outliers (muestra) = 1022; q1=13412.2888625025, q3=359529.71468175005
+ - Columna `pre_balance_b`: IQR outliers (muestra) = 10971, z-outliers (muestra) = 0; q1=2984.77669101175, q3=16431001.93682375
+ - Columna `post_balance_a`: IQR outliers (muestra) = 9811, z-outliers (muestra) = 1024; q1=13412.487538597, q3=359533.7594305
+ - Columna `post_balance_b`: IQR outliers (muestra) = 10971, z-outliers (muestra) = 0; q1=2984.78141585425, q3=16430517.520072501
+ - Columna `decimals_a`: IQR outliers (muestra) = 1655, z-outliers (muestra) = 1655; q1=6.0, q3=9.0
+ - Columna `decimals_b`: IQR outliers (muestra) = 1656, z-outliers (muestra) = 1656; q1=6.0, q3=8.0
+ - Columna `token_price_a`: IQR outliers (muestra) = 0, z-outliers (muestra) = 0; q1=0.7902839275, q3=197.26507898749998
+ - Columna `token_price_b`: IQR outliers (muestra) = 5870, z-outliers (muestra) = 0; q1=0.9997708, q3=251.3236088725
+ - Columna `token_ema_a`: IQR outliers (muestra) = 0, z-outliers (muestra) = 0; q1=0.7820907100000001, q3=202.22819275
+ - Columna `token_ema_b`: IQR outliers (muestra) = 5870, z-outliers (muestra) = 0; q1=0.9997722675, q3=252.95583375
+ - Columna `fee_tier`: IQR outliers (muestra) = 5564, z-outliers (muestra) = 0; q1=0.0005, q3=0.003
+ - Columna `token_amount_a_ui`: IQR outliers (muestra) = 8854, z-outliers (muestra) = 221; q1=0.048225767749999995, q3=36.462998500000005
+ - Columna `token_amount_b_ui`: IQR outliers (muestra) = 11378, z-outliers (muestra) = 311; q1=0.05670278575, q3=289.56945325000004
+ - Columna `volume_usd`: IQR outliers (muestra) = 6817, z-outliers (muestra) = 210; q1=3.2837503050490326, q3=441.2396032023116
+ - Columna `fee_usd`: IQR outliers (muestra) = 5739, z-outliers (muestra) = 239; q1=0.0011900367358818, q3=0.7305194597675871
+ - Columna `lp_fee_usd`: IQR outliers (muestra) = 5739, z-outliers (muestra) = 239; q1=0.001035331960217125, q3=0.6355519299978007
+ - Columna `price_ratio`: IQR outliers (muestra) = 10971, z-outliers (muestra) = 129; q1=0.0473422709268143, q3=196.632936811359
+ - Columna `tvl_usd`: IQR outliers (muestra) = 8700, z-outliers (muestra) = 0; q1=267681.71569894283, q3=8927363.670168702
+ - Columna `tvl_utilization`: IQR outliers (muestra) = 5857, z-outliers (muestra) = 263; q1=1.8985847256876195e-06, q3=0.000139740192915
+ - Columna `balance_ratio`: IQR outliers (muestra) = 4513, z-outliers (muestra) = 0; q1=0.629692597946453, q3=1.9598094175760408
+ - Columna `balance_imbalance`: IQR outliers (muestra) = 4513, z-outliers (muestra) = 0; q1=0.3585761970497695, q3=0.9776845642960814

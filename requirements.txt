@@ -1,0 +1,10 @@
+pandas>=1.5
+numpy
+matplotlib
+seaborn
+python-dateutil
+fastapi
+uvicorn[standard]
+python-multipart
+aiofiles
+pyarrow
