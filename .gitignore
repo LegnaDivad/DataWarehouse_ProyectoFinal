@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtualenv
+venv/
+.env
+
+# Data files and outputs - keep repository small: do not commit large data artifacts
+data/*.csv
+data/processed/
+data/uploads/
+
+# Reports, figures and other generated artifacts
+reports/figs/
+reports/*.csv
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+.idea/
