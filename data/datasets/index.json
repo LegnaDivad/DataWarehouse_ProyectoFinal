@@ -1,0 +1,65 @@
+{
+  "d7bbd1f14dda47cc98d2ef39bd804856": {
+    "dataset_id": "d7bbd1f14dda47cc98d2ef39bd804856",
+    "filename": "hospital_readmissions.csv",
+    "path": "C:\\Users\\adpj8\\DataWarehouse_ProyectoFinal\\data\\datasets\\d7bbd1f14dda47cc98d2ef39bd804856_hospital_readmissions.csv",
+    "rows": 25000,
+    "cols": 17,
+    "created_at": "2025-11-30T05:55:39.057642+00:00",
+    "source": "upload"
+  },
+  "7614e57404734d7dae639d986a4db2c8": {
+    "dataset_id": "7614e57404734d7dae639d986a4db2c8",
+    "filename": "hospital_readmissions.csv",
+    "path": "C:\\Users\\adpj8\\DataWarehouse_ProyectoFinal\\data\\datasets\\7614e57404734d7dae639d986a4db2c8_hospital_readmissions.csv",
+    "rows": 25000,
+    "cols": 17,
+    "created_at": "2025-11-30T05:55:46.440556+00:00",
+    "source": "upload"
+  },
+  "09520926efac4e8c91581f746b45f359": {
+    "dataset_id": "09520926efac4e8c91581f746b45f359",
+    "filename": "Bank_Price_Data_China new.csv",
+    "path": "C:\\Users\\adpj8\\DataWarehouse_ProyectoFinal\\data\\datasets\\09520926efac4e8c91581f746b45f359_Bank_Price_Data_China new.csv",
+    "rows": 1985,
+    "cols": 26,
+    "created_at": "2025-11-30T07:54:23.225581+00:00",
+    "source": "upload"
+  },
+  "9cc9723c0d9743a28b95d973f4ee8068": {
+    "dataset_id": "9cc9723c0d9743a28b95d973f4ee8068",
+    "filename": "hospital_readmissions.csv",
+    "path": "C:\\Users\\adpj8\\DataWarehouse_ProyectoFinal\\data\\datasets\\9cc9723c0d9743a28b95d973f4ee8068_hospital_readmissions.csv",
+    "rows": 25000,
+    "cols": 17,
+    "created_at": "2025-11-30T07:57:58.000449+00:00",
+    "source": "upload"
+  },
+  "7cde34d7594e41c4aa746ffea107c6c9": {
+    "dataset_id": "7cde34d7594e41c4aa746ffea107c6c9",
+    "filename": "final_dataset_tata_motors.csv",
+    "path": "C:\\Users\\adpj8\\DataWarehouse_ProyectoFinal\\data\\datasets\\7cde34d7594e41c4aa746ffea107c6c9_final_dataset_tata_motors.csv",
+    "rows": 1910,
+    "cols": 25,
+    "created_at": "2025-11-30T08:51:46.401178+00:00",
+    "source": "upload"
+  },
+  "583671e259a549eeac297a15834471bc": {
+    "dataset_id": "583671e259a549eeac297a15834471bc",
+    "filename": "final_dataset_tata_motors.csv",
+    "path": "C:\\Users\\adpj8\\DataWarehouse_ProyectoFinal\\data\\datasets\\583671e259a549eeac297a15834471bc_final_dataset_tata_motors.csv",
+    "rows": 1910,
+    "cols": 25,
+    "created_at": "2025-11-30T08:53:57.057236+00:00",
+    "source": "upload"
+  },
+  "24e749b9b20d41c0a94128c1e3718141": {
+    "dataset_id": "24e749b9b20d41c0a94128c1e3718141",
+    "filename": "final_dataset_tata_motors.csv",
+    "path": "C:\\Users\\adpj8\\DataWarehouse_ProyectoFinal\\data\\datasets\\24e749b9b20d41c0a94128c1e3718141_final_dataset_tata_motors.csv",
+    "rows": 1910,
+    "cols": 25,
+    "created_at": "2025-11-30T08:53:57.088859+00:00",
+    "source": "upload"
+  }
+}

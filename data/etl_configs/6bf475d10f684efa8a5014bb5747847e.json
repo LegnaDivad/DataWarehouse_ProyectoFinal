@@ -1,0 +1,26 @@
+{
+  "dataset_id": "9cc9723c0d9743a28b95d973f4ee8068",
+  "target_col": "readmitted",
+  "feature_cols": [
+    "age",
+    "time_in_hospital",
+    "n_lab_procedures",
+    "n_procedures",
+    "n_medications",
+    "n_outpatient",
+    "n_inpatient",
+    "n_emergency",
+    "medical_specialty",
+    "diag_1",
+    "diag_2",
+    "diag_3",
+    "glucose_test",
+    "A1Ctest",
+    "change",
+    "diabetes_med"
+  ],
+  "drop_cols": [],
+  "missing_strategy": "mean",
+  "normalize_numeric": false,
+  "date_cols": []
+}

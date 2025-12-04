@@ -1,0 +1,29 @@
+{
+  "etl_run_id": "3ad17f8099f14b65b9e05ac28b77c0a9",
+  "etl_config_id": "e96d08be133a4abc92cd39ca31a87839",
+  "dataset_id": "9cc9723c0d9743a28b95d973f4ee8068",
+  "processed_path": "C:\\Users\\adpj8\\DataWarehouse_ProyectoFinal\\data\\processed\\3ad17f8099f14b65b9e05ac28b77c0a9.processed.csv",
+  "rows": 25000,
+  "cols": 17,
+  "feature_cols": [
+    "age",
+    "time_in_hospital",
+    "n_lab_procedures",
+    "n_procedures",
+    "n_medications",
+    "n_outpatient",
+    "n_inpatient",
+    "n_emergency",
+    "medical_specialty",
+    "diag_1",
+    "diag_2",
+    "diag_3",
+    "glucose_test",
+    "A1Ctest",
+    "change",
+    "diabetes_med"
+  ],
+  "target_col": "readmitted",
+  "normalization": null,
+  "created_at": "2025-11-30T07:58:11.129983+00:00"
+}

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pipeline ML end-to-end</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #22d3ee;
+      --accent-2: #a855f7;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --border: #1f2937;
+      --success: #22c55e;
+      --error: #f87171;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 20%, rgba(34,211,238,0.08), transparent 30%),
+                  radial-gradient(circle at 80% 10%, rgba(168,85,247,0.08), transparent 32%),
+                  var(--bg);
+      color: var(--text);
+      font-family: "Manrope", system-ui, -apple-system, sans-serif;
+      padding: 24px;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(34,211,238,0.12);
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 24px; }
+    .muted { color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .card h3 { margin: 0 0 8px; }
+    .card p { margin: 0 0 10px; color: var(--muted); }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    input[type="file"], input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+      color: var(--text);
+    }
+    button {
+      padding: 10px 12px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #0b1220;
+      transition: transform 0.08s ease, box-shadow 0.12s ease;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      box-shadow: 0 6px 18px rgba(34,211,238,0.25);
+    }
+    button.secondary {
+      background: #1f2937;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+    button:hover { transform: translateY(-1px); }
+    .status { margin-top: 8px; min-height: 22px; font-size: 14px; }
+    .success { color: var(--success); }
+    .error { color: var(--error); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    th { background: #161e31; }
+    tr.winner-row { background: rgba(34,197,94,0.08); }
+    .plots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .plot-card {
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px;
+    }
+    .plot-card img { width: 100%; border-radius: 8px; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip { padding: 4px 8px; border-radius: 8px; background: #1f2937; border: 1px solid var(--border); }
+    @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">Pipeline end-to-end</div>
+    <h1>Sube, procesa y entrena en una sola pantalla</h1>
+  </header>
+  <p class="muted">Carga CSV, configura ETL, entrena 3 modelos y visualiza métricas y gráficas sin cambiar de vista.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1) Cargar dataset</h3>
+      <p>Sube un CSV local o indica una URL.</p>
+      <input type="file" id="file-input" accept=".csv" />
+      <div class="row" style="margin-top:8px;">
+        <button id="btn-upload-file">Subir archivo</button>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <input type="text" id="url-input" placeholder="https://ejemplo.com/dataset.csv" />
+        <button id="btn-upload-url" class="secondary">Descargar</button>
+      </div>
+      <div class="status" id="status-upload"></div>
+      <div id="dataset-info" class="muted" style="margin-top:6px;"></div>
+    </div>
+
+    <div class="card">
+      <h3>2) Configurar ETL</h3>
+      <p>Selecciona columna objetivo, estrategia de faltantes y normalización.</p>
+      <label class="muted">Columna objetivo</label>
+      <select id="target-col"></select>
+      <label class="muted">Estrategia faltantes</label>
+      <select id="missing-strategy">
+        <option value="drop">drop (default)</option>
+        <option value="mean">mean</option>
+        <option value="median">median</option>
+        <option value="zero">zero</option>
+      </select>
+      <label class="muted">Normalizar numéricos</label>
+      <select id="normalize">
+        <option value="true">Sí</option>
+        <option value="false" selected>No</option>
+      </select>
+      <div class="row" style="margin-top:10px;">
+        <button id="btn-configure">Guardar configuración ETL</button>
+      </div>
+      <div class="status" id="status-config"></div>
+      <div id="etl-info" class="muted" style="margin-top:6px;"></div>
+    </div>
+
+    <div class="card">
+      <h3>3) Entrenar y evaluar</h3>
+      <p>Ejecuta entrenamiento con 3 modelos y genera métricas + gráficas.</p>
+      <label class="muted">Métrica principal</label>
+      <select id="metric-primary">
+        <option value="rmse">RMSE</option>
+        <option value="mae">MAE</option>
+        <option value="mse">MSE</option>
+        <option value="r2">R²</option>
+      </select>
+      <label class="muted" style="margin-top:6px;">Algoritmos</label>
+      <div class="chips" id="algorithms">
+        <label class="chip"><input type="checkbox" value="linear" checked> Linear</label>
+        <label class="chip"><input type="checkbox" value="rf" checked> RandomForest</label>
+        <label class="chip"><input type="checkbox" value="gbr" checked> GradientBoosting</label>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <button id="btn-train">Entrenar</button>
+      </div>
+      <div class="status" id="status-train"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Resultado</h3>
+    <div class="chips" id="result-meta"></div>
+    <h4 id="winner-title" style="margin:8px 0 4px;">Modelo ganador: -</h4>
+    <p class="muted" id="explanation"></p>
+    <table id="metrics-table" style="display:none;">
+      <thead>
+        <tr><th>Modelo</th><th>MAE</th><th>MSE</th><th>RMSE</th><th>R²</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="plots" id="plots"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Vista previa rápida</h3>
+    <div class="chips" id="columns-chip"></div>
+    <table id="preview-table" style="display:none;">
+      <thead><tr id="preview-head"></tr></thead>
+      <tbody id="preview-body"></tbody>
+    </table>
+  </div>
+
+  <script>
+    let datasetId = null;
+    let etlConfigId = null;
+
+    const statusUpload = document.getElementById('status-upload');
+    const statusConfig = document.getElementById('status-config');
+    const statusTrain = document.getElementById('status-train');
+    const datasetInfo = document.getElementById('dataset-info');
+    const etlInfo = document.getElementById('etl-info');
+    const targetSelect = document.getElementById('target-col');
+    const previewTable = document.getElementById('preview-table');
+    const previewHead = document.getElementById('preview-head');
+    const previewBody = document.getElementById('preview-body');
+    const columnsChip = document.getElementById('columns-chip');
+
+    document.getElementById('btn-upload-file').onclick = async () => {
+      const fileInput = document.getElementById('file-input');
+      if (!fileInput.files.length) { statusUpload.textContent = "Selecciona un CSV."; statusUpload.className="status error"; return; }
+      const form = new FormData();
+      form.append("file", fileInput.files[0]);
+      statusUpload.textContent = "Subiendo...";
+      try {
+        const res = await fetch('/api/v1/datasets/upload-file', { method:'POST', body: form });
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        datasetId = data.dataset_id;
+        statusUpload.textContent = "Archivo cargado.";
+        statusUpload.className = "status success";
+        datasetInfo.textContent = `${data.filename} (${data.rows} filas, ${data.cols} columnas)`;
+        await loadPreview();
+      } catch (e) {
+        statusUpload.textContent = "Error: " + e.message;
+        statusUpload.className = "status error";
+      }
+    };
+
+    document.getElementById('btn-upload-url').onclick = async () => {
+      const url = document.getElementById('url-input').value.trim();
+      if (!url) { statusUpload.textContent = "Ingresa una URL."; statusUpload.className="status error"; return; }
+      statusUpload.textContent = "Descargando...";
+      try {
+        const res = await fetch('/api/v1/datasets/upload-url', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ url })
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        datasetId = data.dataset_id;
+        statusUpload.textContent = "Dataset descargado.";
+        statusUpload.className = "status success";
+        datasetInfo.textContent = `${data.filename} (${data.rows} filas, ${data.cols} columnas)`;
+        await loadPreview();
+      } catch (e) {
+        statusUpload.textContent = "Error: " + e.message;
+        statusUpload.className = "status error";
+      }
+    };
+
+    async function loadPreview() {
+      if (!datasetId) return;
+      try {
+        const res = await fetch(`/api/v1/datasets/${datasetId}/preview`);
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        fillColumns(data.columns);
+        fillPreviewTable(data);
+      } catch (e) {
+        console.error("preview error", e);
+      }
+    }
+
+    function fillColumns(cols) {
+      targetSelect.innerHTML = '';
+      columnsChip.innerHTML = '';
+      cols.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c; opt.textContent = c;
+        if (c.toLowerCase().includes('close')) opt.selected = true;
+        targetSelect.appendChild(opt);
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.textContent = c;
+        columnsChip.appendChild(chip);
+      });
+    }
+
+    function fillPreviewTable(data) {
+      const cols = data.columns || [];
+      const rows = data.sample || [];
+      if (!cols.length || !rows.length) { previewTable.style.display = 'none'; return; }
+      previewHead.innerHTML = cols.map(c => `<th>${c}</th>`).join('');
+      previewBody.innerHTML = rows.map(r => `<tr>${cols.map(c => `<td>${r[c] ?? ''}</td>`).join('')}</tr>`).join('');
+      previewTable.style.display = 'table';
+    }
+
+    document.getElementById('btn-configure').onclick = async () => {
+      if (!datasetId) { statusConfig.textContent = "Primero carga un dataset."; statusConfig.className="status error"; return; }
+      statusConfig.textContent = "Guardando config...";
+      const missing = document.getElementById('missing-strategy').value;
+      const normalize = document.getElementById('normalize').value === "true";
+      const target = targetSelect.value;
+      try {
+        const res = await fetch('/api/v1/etl/configure', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ dataset_id: datasetId, target_col: target, missing_strategy: missing, normalize_numeric: normalize })
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        etlConfigId = data.etl_config_id;
+        statusConfig.textContent = "Configuración guardada.";
+        statusConfig.className = "status success";
+        etlInfo.textContent = `ETL config: ${etlConfigId} | target: ${data.target_col} | features: ${data.feature_cols.length}`;
+      } catch (e) {
+        statusConfig.textContent = "Error: " + e.message;
+        statusConfig.className = "status error";
+      }
+    };
+
+    document.getElementById('btn-train').onclick = async () => {
+      if (!etlConfigId) { statusTrain.textContent = "Primero guarda la configuración ETL."; statusTrain.className="status error"; return; }
+      statusTrain.textContent = "Entrenando modelos...";
+      const metric = document.getElementById('metric-primary').value;
+      const algos = Array.from(document.querySelectorAll('#algorithms input:checked')).map(i => i.value);
+      try {
+        const res = await fetch('/api/v1/training/run', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ etl_config_id: etlConfigId, metric_primary: metric, algorithms: algos })
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        statusTrain.textContent = "Entrenamiento completado.";
+        statusTrain.className = "status success";
+        renderResults(data);
+      } catch (e) {
+        statusTrain.textContent = "Error: " + e.message;
+        statusTrain.className = "status error";
+      }
+    };
+
+    function renderResults(data) {
+      document.getElementById('winner-title').textContent = `Modelo ganador: ${data.best_model.name}`;
+      document.getElementById('explanation').textContent = data.explanation || '';
+      const tbody = document.querySelector('#metrics-table tbody');
+      tbody.innerHTML = '';
+      const models = data.models || {};
+      Object.keys(models).forEach(name => {
+        const m = models[name].metrics;
+        const tr = document.createElement('tr');
+        if (name === data.best_model.name) tr.classList.add('winner-row');
+        tr.innerHTML = `<td>${name}</td><td>${num(m.mae)}</td><td>${num(m.mse)}</td><td>${num(m.rmse)}</td><td>${num(m.r2)}</td>`;
+        tbody.appendChild(tr);
+      });
+      document.getElementById('metrics-table').style.display = Object.keys(models).length ? 'table' : 'none';
+
+      const plots = data.plots || [];
+      const container = document.getElementById('plots');
+      container.innerHTML = '';
+      plots.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'plot-card';
+        card.innerHTML = `<h4>${p.title}</h4><img src="${p.path}" alt="${p.title}" /><p class="muted">${p.description}</p>`;
+        container.appendChild(card);
+      });
+
+      const meta = document.getElementById('result-meta');
+      meta.innerHTML = '';
+      addChip(meta, `Run: ${data.training_run_id}`);
+      addChip(meta, `Métrica: ${data.metric_primary.toUpperCase()}`);
+      addChip(meta, `Dataset: ${data.dataset_id || ''}`);
+    }
+
+    function num(val) { return typeof val === "number" ? val.toFixed(4) : "-"; }
+    function addChip(el, text) { const c = document.createElement('span'); c.className='chip'; c.textContent = text; el.appendChild(c); }
+  </script>
+</body>
+</html>
